@@ -76,7 +76,7 @@ namespace Nymezide.Shapes.Tests.Circles
         {
             var builder = serviceProvider.GetService<IShapeBuilder>();
 
-            Circle cirle = await builder.ProcessAsync(new TwoPointsOptions((1,2), (1,7)));
+            Circle cirle = await builder.ProcessAsync(new TwoPointsOptions(new Tuple<double, double>(1,2), new Tuple<double, double>(1,7)));
 
             Assert.Equal(5, cirle.Radius);
         }
@@ -87,7 +87,7 @@ namespace Nymezide.Shapes.Tests.Circles
             var builder = serviceProvider.GetService<IShapeBuilder>();
 
             Circle cirle1 = await builder.ProcessAsync(new RadiusOptions(5));
-            Circle cirle2 = await builder.ProcessAsync(new TwoPointsOptions((1, 2), (1, 7)));
+            Circle cirle2 = await builder.ProcessAsync(new TwoPointsOptions(new Tuple<double, double>(1, 2), new Tuple<double, double>(1, 7)));
 
             Assert.Equal(cirle1.Square, cirle2.Square);
         }
@@ -98,7 +98,7 @@ namespace Nymezide.Shapes.Tests.Circles
             var builder = serviceProvider.GetService<IShapeBuilder>();
 
             Circle cirle1 = await builder.ProcessAsync(new RadiusOptions(5));
-            Circle cirle2 = await builder.ProcessAsync(new TwoPointsOptions((1, 2), (1, 7)));
+            Circle cirle2 = await builder.ProcessAsync(new TwoPointsOptions(new Tuple<double, double>(1, 2), new Tuple<double, double>(1, 7)));
 
             Assert.Equal(cirle1.Perimeter, cirle2.Perimeter);
         }

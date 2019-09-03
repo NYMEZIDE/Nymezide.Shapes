@@ -8,19 +8,17 @@ namespace Nymezide.Shapes.Triangles
     public class TriangleShapeFactory : IShapeFactory<ThreeSidesOptions, Triangle>
     {
         /// <exception cref="ArgumentException">Triangle not possible</exception>
-        public async Task<Triangle> CreateAsync(ThreeSidesOptions triangleOptions, CancellationToken cancellationToken = default)
+        public Task<Triangle> CreateAsync(ThreeSidesOptions triangleOptions, CancellationToken cancellationToken = default)
         {
-            await Check(triangleOptions.SideOne, triangleOptions.SideTwo, triangleOptions.SideThree);
+            Check(triangleOptions.SideOne, triangleOptions.SideTwo, triangleOptions.SideThree);
 
-            return new Triangle(triangleOptions);
+            return Task.FromResult(new Triangle(triangleOptions));
         }
 
-        private Task Check(double a, double b, double c)
+        private void Check(double a, double b, double c)
         {
             if ((a >= b + c) || (b >= a + c) || (c >= a + b))
                 throw new ArgumentException("Triangle not possible");
-
-            return Task.CompletedTask;
         }
     }
 }
