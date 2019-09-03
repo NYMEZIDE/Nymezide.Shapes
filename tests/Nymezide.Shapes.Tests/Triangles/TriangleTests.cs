@@ -44,7 +44,7 @@ namespace Nymezide.Shapes.Tests.Triangles
         [InlineData(-double.MaxValue, -double.MaxValue, -double.MaxValue)]
         public void FailValidateCreateTriangle(double a, double b, double c)
         {
-            Exception ex = Assert.Throws<ArgumentException>(() => new ThreeSidesOptions(a, b, c));
+            Assert.Throws<ArgumentException>(() => new ThreeSidesOptions(a, b, c));
         }
 
         [Theory(DisplayName = "Fail_Create_Triangle")]
@@ -58,7 +58,7 @@ namespace Nymezide.Shapes.Tests.Triangles
         {
             var builder = serviceProvider.GetService<IShapeBuilder>();
 
-            Exception ex = Assert.Throws<ArgumentException>(() => builder.Process(new ThreeSidesOptions(a, b, c)));
+            Assert.Throws<ArgumentException>(() => builder.Process(new ThreeSidesOptions(a, b, c)));
         }
 
         [Theory(DisplayName = "Success_Square_Triangle")]

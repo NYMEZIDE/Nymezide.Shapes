@@ -41,7 +41,7 @@ namespace Nymezide.Shapes.Tests.Circles
         [InlineData(-double.MaxValue)]
         public void FailCreateCircle(double radius)
         {
-            Exception ex = Assert.Throws<ArgumentException>(() => new RadiusOptions(radius));
+            Assert.Throws<ArgumentException>(() => new RadiusOptions(radius));
         }
 
         [Theory(DisplayName = "Success_Square_Circle")]
