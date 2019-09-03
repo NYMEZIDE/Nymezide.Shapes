@@ -58,14 +58,13 @@ namespace Nymezide.Shapes.Triangles
             builder.AppendLine($"   Triangle is{(IsIsosceles ? "" : " not")} isosceles");
             builder.AppendLine($"   Triangle is{(IsEquilateral ? "" : " not")} equilateral");
             builder.AppendLine($"   Triangle is{(IsRectangular ? "" : " not")} rectangular");
-
         }
 
         private bool CalcRectangularState(double a, double b, double c)
         {
-            double eq1 = (Math.Pow(a, 2) - (Math.Pow(b, 2) + Math.Pow(c, 2)));
-            double eq2 = (Math.Pow(b, 2) - (Math.Pow(a, 2) + Math.Pow(c, 2)));
-            double eq3 = (Math.Pow(c, 2) - (Math.Pow(a, 2) + Math.Pow(b, 2)));
+            double eq1 = Math.Pow(a, 2) - (Math.Pow(b, 2) + Math.Pow(c, 2));
+            double eq2 = Math.Pow(b, 2) - (Math.Pow(a, 2) + Math.Pow(c, 2));
+            double eq3 = Math.Pow(c, 2) - (Math.Pow(a, 2) + Math.Pow(b, 2));
 
             if ((eq1 >= 0 && eq1 <= _precision)
                 || (eq2 >= 0 && eq2 <= _precision)
