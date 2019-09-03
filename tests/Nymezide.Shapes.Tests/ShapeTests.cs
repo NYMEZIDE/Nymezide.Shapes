@@ -27,10 +27,10 @@ namespace Nymezide.Shapes.Tests
         [InlineData(5, 5, 5)]
         [InlineData(10, 10, 10)]
         [InlineData(20, 20, 20)]
-        public void SuccessSquareShapeViaTriangle(double a, double b, double c)
+        public async Task SuccessSquareShapeViaTriangle(double a, double b, double c)
         {
             var builder = serviceProvider.GetService<IShapeBuilder>();
-            Shape shape = builder.Process(new ThreeSidesOptions(a, b, c));
+            Shape shape = await builder.ProcessAsync(new ThreeSidesOptions(a, b, c));
 
             Exception ex = Record.Exception(() => shape.GetSquare());
 
@@ -42,10 +42,10 @@ namespace Nymezide.Shapes.Tests
         [InlineData(5)]
         [InlineData(10)]
         [InlineData(20)]
-        public void SuccessSquareShapeViaCircle(double radius)
+        public async Task SuccessSquareShapeViaCircle(double radius)
         {
             var builder = serviceProvider.GetService<IShapeBuilder>();
-            Shape shape = builder.Process(new RadiusOptions(radius));
+            Shape shape = await builder.ProcessAsync(new RadiusOptions(radius));
 
             Exception ex = Record.Exception(() => shape.GetSquare());
 

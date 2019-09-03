@@ -2,6 +2,7 @@
 using Nymezide.Shapes.Circles;
 using Nymezide.Shapes.Core;
 using System;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace Nymezide.Shapes.Tests.Circles
@@ -24,11 +25,11 @@ namespace Nymezide.Shapes.Tests.Circles
         [InlineData(10)]
         [InlineData(20)]
         [InlineData(double.MaxValue)]
-        public void SuccessCreateCircle(double radius)
+        public async Task SuccessCreateCircle(double radius)
         {
             var builder = serviceProvider.GetService<IShapeBuilder>();
 
-            Circle cirle = builder.Process(new RadiusOptions(radius));
+            Circle cirle = await builder.ProcessAsync(new RadiusOptions(radius));
 
             Assert.Equal(radius, cirle.Radius);
         }
@@ -48,11 +49,11 @@ namespace Nymezide.Shapes.Tests.Circles
         [InlineData(5)]
         [InlineData(10)]
         [InlineData(20)]
-        public void SuccessSquareCircle(double radius)
+        public async Task SuccessSquareCircle(double radius)
         {
             var builder = serviceProvider.GetService<IShapeBuilder>();
 
-            Circle cirle = builder.Process(new RadiusOptions(radius));
+            Circle cirle = await builder.ProcessAsync(new RadiusOptions(radius));
 
             Assert.Equal(Math.PI * Math.Pow(radius, 2), cirle.Square);
         }
@@ -61,11 +62,11 @@ namespace Nymezide.Shapes.Tests.Circles
         [InlineData(5)]
         [InlineData(10)]
         [InlineData(20)]
-        public void SuccessPerimetrCircle(double radius)
+        public async Task SuccessPerimetrCircle(double radius)
         {
             var builder = serviceProvider.GetService<IShapeBuilder>();
 
-            Circle cirle = builder.Process(new RadiusOptions(radius));
+            Circle cirle = await builder.ProcessAsync(new RadiusOptions(radius));
 
             Assert.Equal(2 * Math.PI * radius, cirle.Perimeter);
         }

@@ -1,11 +1,13 @@
 ﻿using System;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Nymezide.Shapes.Core
 {
     public interface IShapeBuilder
     {
-        TShape Process<TShape>(IShapeOptions<TShape> shapeOptions) where TShape : Shape;
+        Task<TShape> ProcessAsync<TShape>(IShapeOptions<TShape> shapeOptions, CancellationToken cancellationToken = default) where TShape : Shape;
 
-        TShape Process<TShape>(Func<IShapeOptions<TShape>> funcShapeOptions) where TShape : Shape;
+        Task<TShape> ProcessAsync<TShape>(Func<IShapeOptions<TShape>> funcShapeOptions, CancellationToken cancellationToken = default) where TShape : Shape;
     }
 }

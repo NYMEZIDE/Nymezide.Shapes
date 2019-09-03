@@ -2,6 +2,7 @@
 using Nymezide.Shapes.Core;
 using Nymezide.Shapes.Triangles;
 using System;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace Nymezide.Shapes.Tests.Triangles
@@ -23,11 +24,11 @@ namespace Nymezide.Shapes.Tests.Triangles
         [InlineData(5, 5, 5)]
         [InlineData(10, 10, 10)]
         [InlineData(20, 20, 20)]
-        public void SuccessCreateTriangle(double a, double b, double c)
+        public async Task SuccessCreateTriangle(double a, double b, double c)
         {
             var builder = serviceProvider.GetService<IShapeBuilder>();
 
-            Triangle triangle = builder.Process(new ThreeSidesOptions(a, b, c));
+            Triangle triangle = await builder.ProcessAsync(new ThreeSidesOptions(a, b, c));
 
             Assert.Equal(a, triangle.SideOne);
             Assert.Equal(b, triangle.SideTwo);
@@ -54,22 +55,22 @@ namespace Nymezide.Shapes.Tests.Triangles
         [InlineData(5, 2, 3)]
         [InlineData(1, 4, 3)]
         [InlineData(10, 20, 30)]
-        public void FailFactoryCreateTriangle(double a, double b, double c)
+        public async Task FailFactoryCreateTriangle(double a, double b, double c)
         {
             var builder = serviceProvider.GetService<IShapeBuilder>();
 
-            Assert.Throws<ArgumentException>(() => builder.Process(new ThreeSidesOptions(a, b, c)));
+            await Assert.ThrowsAsync<ArgumentException>(async () => await builder.ProcessAsync(new ThreeSidesOptions(a, b, c)));
         }
 
         [Theory(DisplayName = "Success_Square_Triangle")]
         [InlineData(5, 5, 5)]
         [InlineData(10, 10, 10)]
         [InlineData(20, 20, 20)]
-        public void SuccessSquareTriangle(double a, double b, double c)
+        public async Task SuccessSquareTriangle(double a, double b, double c)
         {
             var builder = serviceProvider.GetService<IShapeBuilder>();
 
-            Triangle triangle = builder.Process(new ThreeSidesOptions(a, b, c));
+            Triangle triangle = await builder.ProcessAsync(new ThreeSidesOptions(a, b, c));
 
             var p = (a + b + c) / 2;
             Assert.Equal(Math.Sqrt(p * (p - a) * (p - b) * (p - c)), triangle.Square);
@@ -79,11 +80,11 @@ namespace Nymezide.Shapes.Tests.Triangles
         [InlineData(5, 5, 5)]
         [InlineData(10, 10, 10)]
         [InlineData(20, 20, 20)]
-        public void SuccessPerimeterTriangle(double a, double b, double c)
+        public async Task SuccessPerimeterTriangle(double a, double b, double c)
         {
             var builder = serviceProvider.GetService<IShapeBuilder>();
 
-            Triangle triangle = builder.Process(new ThreeSidesOptions(a, b, c));
+            Triangle triangle = await builder.ProcessAsync(new ThreeSidesOptions(a, b, c));
 
             Assert.Equal(a + b + c, triangle.Perimeter);
         }
@@ -92,11 +93,11 @@ namespace Nymezide.Shapes.Tests.Triangles
         [InlineData(5, 5, 5)]
         [InlineData(10, 10, 10)]
         [InlineData(20, 20, 20)]
-        public void IsEquilateralTriangle(double a, double b, double c)
+        public async Task IsEquilateralTriangle(double a, double b, double c)
         {
             var builder = serviceProvider.GetService<IShapeBuilder>();
 
-            Triangle triangle = builder.Process(new ThreeSidesOptions(a, b, c));
+            Triangle triangle = await builder.ProcessAsync(new ThreeSidesOptions(a, b, c));
 
             Assert.False(triangle.IsRectangular);
             Assert.True(triangle.IsIsosceles);
@@ -107,11 +108,11 @@ namespace Nymezide.Shapes.Tests.Triangles
         [InlineData(4, 5, 5)]
         [InlineData(10, 5, 10)]
         [InlineData(20, 20, 10)]
-        public void IsIsoscelesTriangle(double a, double b, double c)
+        public async Task IsIsoscelesTriangle(double a, double b, double c)
         {
             var builder = serviceProvider.GetService<IShapeBuilder>();
 
-            Triangle triangle = builder.Process(new ThreeSidesOptions(a, b, c));
+            Triangle triangle = await builder.ProcessAsync(new ThreeSidesOptions(a, b, c));
 
             Assert.False(triangle.IsEquilateral);
             Assert.False(triangle.IsRectangular);
@@ -123,11 +124,11 @@ namespace Nymezide.Shapes.Tests.Triangles
         [InlineData(9, 12, 15)]
         [InlineData(10, 24, 26)]
         [InlineData(15, 20, 25)]
-        public void IsRectangularTriangle(double a, double b, double c)
+        public async Task IsRectangularTriangle(double a, double b, double c)
         {
             var builder = serviceProvider.GetService<IShapeBuilder>();
 
-            Triangle triangle = builder.Process(new ThreeSidesOptions(a, b, c));
+            Triangle triangle = await builder.ProcessAsync(new ThreeSidesOptions(a, b, c));
 
             Assert.False(triangle.IsEquilateral);
             Assert.False(triangle.IsIsosceles);
@@ -138,13 +139,13 @@ namespace Nymezide.Shapes.Tests.Triangles
         [InlineData(4)]
         [InlineData(9)]
         [InlineData(15)]
-        public void IsRectangularAndIsIsoscelesTriangle(double a)
+        public async Task IsRectangularAndIsIsoscelesTriangle(double a)
         {
             double b = a;
             double c = Math.Sqrt(2 * a * b);
             var builder = serviceProvider.GetService<IShapeBuilder>();
 
-            Triangle triangle = builder.Process(new ThreeSidesOptions(a, b, c));
+            Triangle triangle = await builder.ProcessAsync(new ThreeSidesOptions(a, b, c));
 
             Assert.False(triangle.IsEquilateral);
             Assert.True(triangle.IsIsosceles);

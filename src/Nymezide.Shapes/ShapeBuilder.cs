@@ -1,5 +1,7 @@
 ﻿using Nymezide.Shapes.Core;
 using System;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Nymezide.Shapes
 {
@@ -14,15 +16,15 @@ namespace Nymezide.Shapes
             _registry = registry;
         }
 
-        public TShape Process<TShape>(IShapeOptions<TShape> shapeOptions) where TShape : Shape
+        public async Task<TShape> ProcessAsync<TShape>(IShapeOptions<TShape> shapeOptions, CancellationToken cancellationToken = default) where TShape : Shape
         {
             Type handlerType = _registry.MethodFor(shapeOptions.GetType());
             dynamic queryHandler = _serviceProvider.GetService(handlerType);
 
-            return queryHandler?.Create((dynamic)shapeOptions) ?? throw new MissingMemberException($"Way from `{shapeOptions.GetType()}` to `{typeof(TShape).GetType()}` missing");
+            return await queryHandler?.CreateAsync((dynamic)shapeOptions) ?? throw new MissingMemberException($"Way from `{shapeOptions.GetType()}` to `{typeof(TShape).GetType()}` missing");
         }
 
-        public TShape Process<TShape>(Func<IShapeOptions<TShape>> funcShapeOptions) where TShape : Shape
-            => Process(funcShapeOptions.Invoke());
+        public async Task<TShape> ProcessAsync<TShape>(Func<IShapeOptions<TShape>> funcShapeOptions, CancellationToken cancellationToken = default) where TShape : Shape
+            => await ProcessAsync(funcShapeOptions.Invoke());
     }
 }
