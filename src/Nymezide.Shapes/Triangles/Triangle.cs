@@ -5,8 +5,10 @@ using System.Text;
 
 namespace Nymezide.Shapes.Triangles
 {
-    public sealed class Triangle : Shape, ISquareCalcFeature, IPerimeterCalcFeature, IEquilateral
+    public sealed class Triangle : Shape, ISquareCalcFeature, IPerimeterCalcFeature, IEquilateral, IRectangular, IIsosceles
     {
+        private double _precision = 0.00000000000001;
+
         public double SideOne { get; }
 
         public double SideTwo { get; }
@@ -24,6 +26,8 @@ namespace Nymezide.Shapes.Triangles
             var p = Perimeter / 2;
             Square = Math.Sqrt(p * (p - SideOne) * (p - SideTwo) * (p - SideThree));
 
+            IsRectangular = CalcRect(SideOne, SideTwo, SideThree);
+
             if (SideOne == SideTwo || SideTwo == SideThree || SideOne == SideThree)
             {
                 IsIsosceles = true;
@@ -31,6 +35,7 @@ namespace Nymezide.Shapes.Triangles
                 if (SideOne == SideTwo && SideTwo == SideThree)
                 {
                     IsIsosceles = false;
+                    IsRectangular = false;
                     IsEquilateral = true;
                 }
             }
@@ -44,6 +49,8 @@ namespace Nymezide.Shapes.Triangles
 
         public double Square { get; }
 
+        public bool IsRectangular { get; }
+
         protected override void AddInfo(StringBuilder builder)
         {
             builder.AppendLine($"   Square = {Square}");
@@ -51,6 +58,22 @@ namespace Nymezide.Shapes.Triangles
 
             builder.AppendLine($"   Triangle is{(IsIsosceles ? "" : " not")} isosceles");
             builder.AppendLine($"   Triangle is{(IsEquilateral ? "" : " not")} equilateral");
+            builder.AppendLine($"   Triangle is{(IsRectangular ? "" : " not")} rectangular");
+
+        }
+
+        private bool CalcRect(double a, double b, double c)
+        {
+            double eq1 = (Math.Pow(a, 2) - (Math.Pow(b, 2) + Math.Pow(c, 2)));
+            double eq2 = (Math.Pow(b, 2) - (Math.Pow(a, 2) + Math.Pow(c, 2)));
+            double eq3 = (Math.Pow(c, 2) - (Math.Pow(a, 2) + Math.Pow(b, 2)));
+
+            if ((eq1 >= 0 && eq1 <= _precision)
+                || (eq2 >= 0 && eq2 <= _precision)
+                || (eq3 >= 0 && eq3 <= _precision))
+                return true;
+
+            return false;
         }
     }
 }
