@@ -70,5 +70,37 @@ namespace Nymezide.Shapes.Tests.Circles
 
             Assert.Equal(2 * Math.PI * radius, cirle.Perimeter);
         }
+
+        [Fact(DisplayName = "Success_Create_Circle_via_TwoPoints")]
+        public async Task SuccessSquareCircleViaTwoPoints()
+        {
+            var builder = serviceProvider.GetService<IShapeBuilder>();
+
+            Circle cirle = await builder.ProcessAsync(new TwoPointsOptions((1,2), (1,7)));
+
+            Assert.Equal(5, cirle.Radius);
+        }
+
+        [Fact(DisplayName = "Success_Equals_Squares_Circles")]
+        public async Task SuccessEqualsSquaresCircles()
+        {
+            var builder = serviceProvider.GetService<IShapeBuilder>();
+
+            Circle cirle1 = await builder.ProcessAsync(new RadiusOptions(5));
+            Circle cirle2 = await builder.ProcessAsync(new TwoPointsOptions((1, 2), (1, 7)));
+
+            Assert.Equal(cirle1.Square, cirle2.Square);
+        }
+
+        [Fact(DisplayName = "Success_Equals_Perimeters_Circles")]
+        public async Task SuccessEqualsPerimetersCircles()
+        {
+            var builder = serviceProvider.GetService<IShapeBuilder>();
+
+            Circle cirle1 = await builder.ProcessAsync(new RadiusOptions(5));
+            Circle cirle2 = await builder.ProcessAsync(new TwoPointsOptions((1, 2), (1, 7)));
+
+            Assert.Equal(cirle1.Perimeter, cirle2.Perimeter);
+        }
     }
 }
