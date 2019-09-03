@@ -5,11 +5,19 @@ VisualStudioVersion = 16.0.29123.88
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{7FB73A4F-AAA4-4E37-8646-EB2036A90239}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nymezide.Shapes", "src\Nymezide.Shapes\Nymezide.Shapes.csproj", "{D5F0D141-FEB7-497B-84CB-5B336E5C58D4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nymezide.Shapes", "src\Nymezide.Shapes\Nymezide.Shapes.csproj", "{D5F0D141-FEB7-497B-84CB-5B336E5C58D4}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{4DCFC751-F397-40E0-9C23-25D987EF5C68}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nymezide.Shapes.Tests", "tests\Nymezide.Shapes.Tests\Nymezide.Shapes.Tests.csproj", "{388E75EA-C670-479E-82BF-0166A0D38569}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{11F9CEED-A34A-4A43-8CDD-C57EC7DE757F}"
+	ProjectSection(SolutionItems) = preProject
+		.gitattributes = .gitattributes
+		.gitignore = .gitignore
+		NuGet.config = NuGet.config
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
