@@ -65,5 +65,24 @@ namespace Nymezide.Shapes.Tests
 
             Assert.NotNull(shape);
         }
+
+        [Theory(DisplayName = "Success_Summary_Shape")]
+        [InlineData(5)]
+        [InlineData(10)]
+        [InlineData(20)]
+        public async Task SuccessSummaryShape(double radius)
+        {
+            var builder = serviceProvider.GetService<IShapeBuilder>();
+
+            Shape shape = await builder.ProcessAsync(() => new RadiusOptions(radius));
+
+            StringBuilder summary = new StringBuilder(shape.GetSummary());
+
+            Assert.NotEmpty(summary.ToString());
+
+            var lines = summary.ToString().Split(Environment.NewLine);
+
+            Assert.NotEqual(1, lines.Length);
+        }
     }
 }
