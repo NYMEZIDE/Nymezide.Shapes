@@ -14,8 +14,8 @@ namespace Nymezide.Shapes.Circles
 
         public Task<Circle> CreateAsync(TwoPointsOptions circleOption, CancellationToken cancellationToken = default)
         {
-            double radius = Math.Abs(Math.Sqrt(Math.Pow((circleOption.RadiusPoint.x - circleOption.CenterPoint.x), 2)
-                                    + Math.Pow((circleOption.RadiusPoint.y - circleOption.CenterPoint.y), 2)));
+            double radius = Math.Abs(Math.Sqrt(Math.Pow((circleOption.PerimeterPoint.x - circleOption.CenterPoint.x), 2)
+                                    + Math.Pow((circleOption.PerimeterPoint.y - circleOption.CenterPoint.y), 2)));
 
             return Task.FromResult(new Circle(radius));
         }

@@ -9,7 +9,7 @@ namespace Nymezide.Shapes.Circles
     {
         public (double x, double y) CenterPoint { get; }
 
-        public (double x, double y) RadiusPoint { get; }
+        public (double x, double y) PerimeterPoint { get; }
 
         public TwoPointsOptions((double x, double y) centerPoint, (double x, double y) perimeterPoint)
         {
@@ -17,7 +17,7 @@ namespace Nymezide.Shapes.Circles
                 throw new ArgumentException($"Perimeter point equals Center point", nameof(perimeterPoint));
 
             CenterPoint = centerPoint;
-            RadiusPoint = perimeterPoint;
+            PerimeterPoint = perimeterPoint;
         }
     }
 }
