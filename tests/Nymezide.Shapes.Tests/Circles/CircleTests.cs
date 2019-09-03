@@ -1,5 +1,4 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Nymezide.Shapes.CalcFeatures;
 using Nymezide.Shapes.Circles;
 using Nymezide.Shapes.Core;
 using System;

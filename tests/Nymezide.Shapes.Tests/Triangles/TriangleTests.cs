@@ -2,8 +2,6 @@
 using Nymezide.Shapes.Core;
 using Nymezide.Shapes.Triangles;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using Xunit;
 
 namespace Nymezide.Shapes.Tests.Triangles
@@ -100,8 +98,8 @@ namespace Nymezide.Shapes.Tests.Triangles
 
             Triangle triangle = builder.Process(new ThreeSidesOptions(a, b, c));
 
-            Assert.False(triangle.IsIsosceles);
             Assert.False(triangle.IsRectangular);
+            Assert.True(triangle.IsIsosceles);
             Assert.True(triangle.IsEquilateral);
         }
 
