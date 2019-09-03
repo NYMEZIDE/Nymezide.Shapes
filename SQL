@@ -1,0 +1,41 @@
+BEGIN; 
+
+CREATE TEMP TABLE Topics (
+   topic_id int
+ , title varchar(255)
+) ON COMMIT DROP;
+
+INSERT INTO Topics (topic_id, title)
+VALUES (1, 'Title 1'),(2, 'Title 2'),(3, 'Title 3'),(4, 'Title 4'),(5, 'Title 5');
+
+CREATE TEMP TABLE Tags (
+   tag_id varchar(255),
+   tagvalue varchar(255)
+) ON COMMIT DROP;
+
+INSERT INTO Tags (tag_id,tagvalue)
+VALUES ('#tag1','Tag 1'),('#tag2','Tag 2'),('#tag3','Tag 3'),('#tag4','Tag 4'),('#tag5','Tag 5'),('#tag6','Tag 6'),
+('#tag7','Tag 7'),('#tag8','Tag 8'),('#tag9','Tag 9'),('#tag10','Tag 10');
+
+CREATE TEMP TABLE Topics_Tags (
+   topic_id int,
+   tag_id varchar(255)
+) ON COMMIT DROP;
+
+INSERT INTO Topics_Tags (topic_id,tag_id)
+VALUES (1,'#tag1'),(1,'#tag2'),(2,'#tag1'),(2,'#tag4'),(1,'#tag5'),(4,'#tag7'),(4,'#tag8'),(4,'#tag2'),(4,'#tag5');
+
+SELECT topic.title, tag.tagvalue
+FROM Topics as topic
+LEFT JOIN Topics_Tags as tt ON tt.topic_id = topic.topic_id
+LEFT JOIN Tags as tag ON tag.tag_id = tt.tag_id
+ORDER BY topic.topic_id,tag.tag_id;
+
+SELECT topic.title, string_agg(tag.tagvalue, ', ' order by tag.tagvalue) as "tags"
+FROM Topics as topic
+LEFT JOIN Topics_Tags as tt ON tt.topic_id = topic.topic_id
+LEFT JOIN Tags as tag ON tag.tag_id = tt.tag_id
+GROUP BY topic.title
+ORDER BY topic.title
+ 
+COMMIT; 
